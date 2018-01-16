@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aktuelles Datum"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvDatum"
+        android:layout_gravity="center_horizontal" />
+
+    <Chronometer
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zeitaufzeichnung"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvZeitaufzeichnungSeitBeginn"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Temperatur"
+        android:id="@+id/btnTemperatur"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Geschwindigkeit"
+        android:id="@+id/btnGeschwindigkeit"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Höhenmeter"
+        android:id="@+id/btnHoehenmeter"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Pollenflugdaten"
+        android:id="@+id/btnPollenflugdaten"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Luftdruck"
+        android:id="@+id/btnLuftdruck"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Google Maps"
+        android:id="@+id/btnGoogleMaps"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="26dp"
+        android:text="Wanderung beenden - Datenauswertung anzeigen"
+        android:id="@+id/btnWanderungBeenden"
+        android:layout_weight="0.46"
+        android:onClick="btnWanderungBeendenGedrueck"/>
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="WARNUNG!!!"
+        android:id="@+id/tvWarnungR"
+        android:layout_gravity="center"
+        android:singleLine="false"
+        android:textColor="@android:color/holo_red_dark"
+        android:textIsSelectable="false"
+        android:textSize="40dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Zulange Ruhepause wurde erkannt"
+        android:id="@+id/tvSturzWurdeErkannt"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Notruf wird in"
+        android:id="@+id/tvNotrufWirdIn"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="SekudenAnzahl"
+        android:id="@+id/tVSekundenAnzahl"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sekunden gestartet"
+        android:id="@+id/tvSekundenGestartet"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="141dp"
+        android:id="@+id/editText" />
+
+    <Button
+        android:id ="@+id/push_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:text="Notruf nicht absetzen!!"
+        android:textColor="@android:color/black"
+        android:background="@drawable/button_bg_round"
+        android:padding="15dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25dp"
+        android:onClick="btnNotrufNichtAbsetzen"/>
+</LinearLayout>
