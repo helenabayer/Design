@@ -38,42 +38,48 @@
         android:layout_height="wrap_content"
         android:text="Temperatur"
         android:id="@+id/btnTemperatur"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnTemperaturGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Geschwindigkeit"
         android:id="@+id/btnGeschwindigkeit"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnGeschwindigkeitGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Höhenmeter"
         android:id="@+id/btnHoehenmeter"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnHoehenmeterGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Pollenflugdaten"
         android:id="@+id/btnPollenflugdaten"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnPolltenflugdatenGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Luftdruck"
         android:id="@+id/btnLuftdruck"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnLuftdrukGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Google Maps"
         android:id="@+id/btnGoogleMaps"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="btnGoogleMapsGedrueckt"/>
 
     <Button
         android:layout_width="fill_parent"

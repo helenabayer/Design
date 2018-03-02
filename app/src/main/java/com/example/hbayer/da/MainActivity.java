@@ -1,12 +1,20 @@
 package com.example.hbayer.da;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,29 +24,92 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidplot.ui.widget.TextLabelWidget;
+import com.androidplot.xy.XYPlot;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.RunnableFuture;
+import android.app.Activity;
+import android.graphics.*;
+import android.os.Bundle;
 
+import com.androidplot.util.PixelUtils;
+import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.XYSeries;
+import com.androidplot.xy.*;
+
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.util.*;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     long abgelaufeneZeit;
-    public final String SmsSenden="06509808173";
-    Button start = (Button) findViewById(R.id.btnWanderungStarten);
-    Button ende = (Button)findViewById(R.id.btnWanderungBeenden);
-    Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-
-
+    public final String SmsSenden = "06509808173";
+   /* Button start = (Button) findViewById(R.id.btnWanderungStarten);
+    Button ende = (Button) findViewById(R.id.btnWanderungBeenden);
+    Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);*/
+    Boolean pressedOnce=false;
+    Boolean canClose= true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startseite);
+        Button start = (Button) findViewById(R.id.btnWanderungStarten);
+        Button ende = (Button) findViewById(R.id.btnWanderungBeenden);
+        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == event.KEYCODE_BACK) {
+            if (!pressedOnce) {
+                pressedOnce = true;
+                Toast.makeText(getApplicationContext(), "Zum beenden erneut drücken!!", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pressedOnce = false;
+                    }
+                }, 4000);
+            } else if (pressedOnce) {
+                pressedOnce = false;
+                onBackPressed();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
-     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //int i = getFragmentManager().getBackStackEntryCount();
+        //if (i > 0) {
+         //   getFragmentManager().popBackStack();
+        // if (i == 1) {
+              //  ImageView ivStart = (ImageView) findViewById(R.id.ivStart);
+               // ivStart.setColorFilter(Color.rgb(255, 255, 255), android.graphics.PorterDuff.Mode.MULTIPLY);
+         //   }
+       // } //else
+            //super.onBackPressed();
+
+    }
+
+
+
 
     public void btnWanderungStarten(final View sources) {
         setContentView(R.layout.datenanzeigen);
@@ -53,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SimpleDateFormat zeitformat = new SimpleDateFormat("HH:mm:ss");
         zeitaufzeichnungStart.setText(zeitformat.format(kalender.getTimeInMillis()));
         SimpleDateFormat zeitaufzeichnungAktuell = new SimpleDateFormat("HH:mm:ss");
-       // SimpleDateFormat vergangeneZeit = zeitaufzeichnungStart-zeitaufzeichnungAktuell;
+        // SimpleDateFormat vergangeneZeit = zeitaufzeichnungStart-zeitaufzeichnungAktuell;
         //uhrzeit
         //SimpleDateFormat zeitformat = new SimpleDateFormat("HH:mm:ss");
         //uhrzeit.setText(zeitformat.format(kalender.getTime()));
@@ -67,26 +138,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //btnStart.setOnClickListener(this);
         //btnStopp.setOnClickListener(this);
 
-        abgelaufeneZeit= 0;
-        start.setOnClickListener(this);
-        ende.setOnClickListener(this);
+        abgelaufeneZeit = 0;
 
 
 
     }
-    public void btnWanderungAbbrechenGedrueck(final View sources)
-    {
-        setContentView(R.layout.datenanalyse);
+
+
+
+    public void btnTemperaturGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+        XYPlot plot;
+        plot = (XYPlot) findViewById(R.id.plot);
+        plot.setTitle("Temperatur");
+        plot.setDomainLabel("Zeit");
+        plot.setRangeLabel("°C");
     }
-    public void btnWanderungFortsetzenGedrueck(final View sources)
-    {
-        setContentView(R.layout.datenanzeigen
 
-
-
-        );
+    public void btnGeschwindigkeitGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+        XYPlot plot;
+        plot = (XYPlot) findViewById(R.id.plot);
+        plot.setTitle("Geschwindigkeit");
+        plot.setDomainLabel("Zeit");
+        plot.setRangeLabel("km/h");
     }
 
+    public void btnHoehenmeterGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+        XYPlot plot;
+        plot = (XYPlot) findViewById(R.id.plot);
+        plot.setTitle("Höhenmeter");
+        plot.setDomainLabel("Zeit");
+        plot.setRangeLabel("hm");
+
+    }
+
+    public void btnPolltenflugdatenGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+    }
+
+    public void btnLuftdrukGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+        XYPlot plot;
+        plot = (XYPlot) findViewById(R.id.plot);
+        plot.setTitle("Luftdruck");
+        plot.setDomainLabel("Zeit");
+        plot.setRangeLabel("bar");
+    }
+
+    public void btnGoogleMapsGedrueckt(final View sources) {
+        setContentView(R.layout.datenanzeigengeklickt);
+    }
 
     public void btnWanderungBeendenGedrueck(final View sources) {
         long zeitbeendet;
@@ -95,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //zeitaufzeichnung.setText((int) endZeit);
         setContentView(R.layout.datenanalyse);
     }
+
     public void btnNotfallkontaktgedrueckt(final View sources) {
         setContentView(R.layout.notfallkontakthinzufuegen);
 
@@ -107,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 StartListener = SystemClock.uptimeMillis();
        */  //   }
-     //   }); {
+        //   }); {
            /* @Override
             public void onClick(View v) {
                 StartListener = SystemClock.uptimeMillis();
@@ -116,23 +220,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 vergangeneZeit.setText((CharSequence) chronometer);
                 }
         };*/
-        View.OnClickListener mStopListener = new View.OnClickListener() {
+
+        /*View.OnClickListener mStopListener = new View.OnClickListener() {
             public void onClick(View v) {
-                chronometer.stop();
+                Button start = (Button) findViewById(R.id.btnWanderungStarten);
+                Button ende = (Button) findViewById(R.id.btnWanderungBeenden);
+                Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);chronometer.stop();
             }
-        };
+        };*/
 
     }
 
-    public void btnKontaktHinzufuegenGedrueckt(final View sources)
-    {
-        EditText vn= (EditText)findViewById(R.id.etVorname);
-        EditText nn= (EditText)findViewById(R.id.etNachname);
-        EditText telNr= (EditText)findViewById(R.id.etTelefonnummer);
-        String anruf= telNr.toString();
-        EditText email= (EditText)findViewById(R.id.etEmail);
-        CheckBox smsCheck = (CheckBox)findViewById(R.id.cbSMS);
-        CheckBox emailCheck= (CheckBox)findViewById(R.id.cbEmail);
+    public void btnKontaktHinzufuegenGedrueckt(final View sources) {
+      /*  EditText vn = (EditText) findViewById(R.id.etVorname);
+        EditText nn = (EditText) findViewById(R.id.etNachname);
+        EditText telNr = (EditText) findViewById(R.id.etTelefonnummer);
+        String anruf = telNr.toString();
+        EditText email = (EditText) findViewById(R.id.etEmail);
+        CheckBox smsCheck = (CheckBox) findViewById(R.id.cbSMS);
+        CheckBox emailCheck = (CheckBox) findViewById(R.id.cbEmail);*/
 ////        //NotfallKontaktDaten kontaktDaten= new NotfallKontaktDaten(
 //                //kontaktDaten.vorname=vn.toString(),
 //                //kontaktDaten.nachname=nn.toString(),
@@ -184,10 +290,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.startseite);
 
-}
-    public void zuLangePause(final View sources)
-    {
-        final TextView sekAnzahl= (TextView)findViewById(R.id.tVSekundenAnzahl);
+    }
+
+    public void zuLangePause(final View sources) {
+        final TextView sekAnzahl = (TextView) findViewById(R.id.tVSekundenAnzahl);
         final CountDownTimer start = new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -195,7 +301,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             public void onFinish() {
-            sekAnzahl.setText("");            }
+                sekAnzahl.setText("");
+            }
+        }.start();
+
+    }
+
+    public void sturzWahrgenommen(final View sources) {
+        final TextView sekAnzahl = (TextView) findViewById(R.id.tVSekundenAnzahl);
+        final CountDownTimer start = new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                sekAnzahl.setText((int) (millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                sekAnzahl.setText("");
+            }
         }.start();
 
     }
