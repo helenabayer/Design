@@ -50,7 +50,7 @@ import java.text.Format;
 import java.text.ParsePosition;
 import java.util.*;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    long abgelaufeneZeit;
+
     public final String SmsSenden = "06509808173";
    /* Button start = (Button) findViewById(R.id.btnWanderungStarten);
     Button ende = (Button) findViewById(R.id.btnWanderungBeenden);
@@ -112,122 +112,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void btnWanderungStarten(final View sources) {
-        setContentView(R.layout.datenanzeigen);
-        Calendar kalender = Calendar.getInstance();
-        //TextView uhrzeit = (TextView) findViewById(R.id.tvUhrzeit);
-        TextView datum = (TextView) findViewById(R.id.tvDatum);
-        TextView zeitaufzeichnungStart = (TextView) findViewById(R.id.tvZeitaufzeichnungSeitBeginn);
-//        Button btnStart;
-//        Button btnStopp;
 
-        //Zeitmessung seit Wanderungsbeginn
-        SimpleDateFormat zeitformat = new SimpleDateFormat("HH:mm:ss");
-        zeitaufzeichnungStart.setText(zeitformat.format(kalender.getTimeInMillis()));
-        SimpleDateFormat zeitaufzeichnungAktuell = new SimpleDateFormat("HH:mm:ss");
-        // SimpleDateFormat vergangeneZeit = zeitaufzeichnungStart-zeitaufzeichnungAktuell;
-        //uhrzeit
-        //SimpleDateFormat zeitformat = new SimpleDateFormat("HH:mm:ss");
-        //uhrzeit.setText(zeitformat.format(kalender.getTime()));
-        //datum
-        SimpleDateFormat datumsformat = new SimpleDateFormat("EEEE', 'dd.MM.yyyy");
-        datum.setText(datumsformat.format(kalender.getTime()));
-        //StartStoppUhr
-        //btnStart = (Button) findViewById(R.id.btnWanderungStarten);
-        //btnStopp = (Button) findViewById(R.id.btnWanderungBeenden);
-        //abgelaufeneZeit = 0;
-        //btnStart.setOnClickListener(this);
-        //btnStopp.setOnClickListener(this);
-
-        abgelaufeneZeit = 0;
-
-
-
+        startActivity(new Intent(MainActivity.this, Datenanzeigen.class));
     }
 
 
 
-    public void btnTemperaturGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-        XYPlot plot;
-        plot = (XYPlot) findViewById(R.id.plot);
-        plot.setTitle("Temperatur");
-        plot.setDomainLabel("Zeit");
-        plot.setRangeLabel("°C");
-    }
-
-    public void btnGeschwindigkeitGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-        XYPlot plot;
-        plot = (XYPlot) findViewById(R.id.plot);
-        plot.setTitle("Geschwindigkeit");
-        plot.setDomainLabel("Zeit");
-        plot.setRangeLabel("km/h");
-    }
-
-    public void btnHoehenmeterGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-        XYPlot plot;
-        plot = (XYPlot) findViewById(R.id.plot);
-        plot.setTitle("Höhenmeter");
-        plot.setDomainLabel("Zeit");
-        plot.setRangeLabel("hm");
-
-    }
-
-    public void btnPolltenflugdatenGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-    }
-
-    public void btnLuftdrukGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-        XYPlot plot;
-        plot = (XYPlot) findViewById(R.id.plot);
-        plot.setTitle("Luftdruck");
-        plot.setDomainLabel("Zeit");
-        plot.setRangeLabel("bar");
-    }
-
-    public void btnGoogleMapsGedrueckt(final View sources) {
-        setContentView(R.layout.datenanzeigengeklickt);
-    }
-
-    public void btnWanderungBeendenGedrueck(final View sources) {
-        long zeitbeendet;
-        zeitbeendet = System.currentTimeMillis();
-        long endZeit = zeitbeendet - abgelaufeneZeit;
-        //zeitaufzeichnung.setText((int) endZeit);
-        setContentView(R.layout.datenanalyse);
-    }
 
     public void btnNotfallkontaktgedrueckt(final View sources) {
-        setContentView(R.layout.notfallkontakthinzufuegen);
 
-        /*final long StartListener;
-        start.setOnClickListener(StartListener);
-        final TextView vergangeneZeit = (TextView)findViewById(R.id.tvZeitaufzeichnungSeitBeginn);
-
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StartListener = SystemClock.uptimeMillis();
-       */  //   }
-        //   }); {
-           /* @Override
-            public void onClick(View v) {
-                StartListener = SystemClock.uptimeMillis();
-                chronometer.setBase(SystemClock.elapsedRealtime());
-                chronometer.start();
-                vergangeneZeit.setText((CharSequence) chronometer);
-                }
-        };*/
-
-        /*View.OnClickListener mStopListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                Button start = (Button) findViewById(R.id.btnWanderungStarten);
-                Button ende = (Button) findViewById(R.id.btnWanderungBeenden);
-                Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);chronometer.stop();
-            }
-        };*/
+        startActivity(new Intent(MainActivity.this, Notfallkontakthinzufuegen.class));
 
     }
 
@@ -293,32 +187,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void zuLangePause(final View sources) {
-        final TextView sekAnzahl = (TextView) findViewById(R.id.tVSekundenAnzahl);
-        final CountDownTimer start = new CountDownTimer(30000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-                sekAnzahl.setText((int) (millisUntilFinished / 1000));
-            }
-
-            public void onFinish() {
-                sekAnzahl.setText("");
-            }
-        }.start();
+        startActivity(new Intent(MainActivity.this, ZulangePause.class));
 
     }
 
     public void sturzWahrgenommen(final View sources) {
-        final TextView sekAnzahl = (TextView) findViewById(R.id.tVSekundenAnzahl);
-        final CountDownTimer start = new CountDownTimer(30000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-                sekAnzahl.setText((int) (millisUntilFinished / 1000));
-            }
+        startActivity(new Intent(MainActivity.this, Sturz.class));
 
-            public void onFinish() {
-                sekAnzahl.setText("");
-            }
-        }.start();
 
     }
 

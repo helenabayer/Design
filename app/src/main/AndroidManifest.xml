@@ -36,7 +36,14 @@
         <activity android:name=".Datenanzeigengeklickt" />
         <activity android:name=".Notfallkontakthinzufuegen" />
         <activity android:name=".Sturz" />
-        <activity android:name=".ZulangePause"></activity>
+        <activity android:name=".ZulangePause" />
+        <activity android:name=".Temperatur" />
+        <activity android:name=".Geschwindigkeit" />
+        <activity android:name=".Hoehenmeter" />
+        <activity android:name=".Luftdruck" />
+        <activity android:name=".WanderungBeenden" />
+        <activity android:name=".GoogleMaps" />
+        <activity android:name=".Pollenflugdaten"></activity>
     </application>
 
 </manifest>
